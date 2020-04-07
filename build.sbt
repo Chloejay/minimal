@@ -3,7 +3,7 @@ val Scala_212 = "2.12.11"
 inThisBuild(List(
 scalaVersion := Scala_212,
 organization := "com.chloejay",
-homepage := Some(url("https://github.com/Chloejay/scala_fp")),
+homepage := Some(url("https://github.com/Chloejay/minimal")),
 developers := List(
 Developer(
     "chloe",
