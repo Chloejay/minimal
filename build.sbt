@@ -17,9 +17,8 @@ Developer(
 )))
 )
 
-lazy val framework = project
-.settings(
-moduleName := "minimal",
+lazy val minimal = (project in file(".")).
+settings(moduleName := "minimal",
 libraryDependencies ++= Seq(
     scalatest,
     cats_core,

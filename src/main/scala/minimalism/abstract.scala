@@ -153,5 +153,3 @@ def combineAll(T: Monoid)(list: List[T]) :T=
 
 
 
-
-
