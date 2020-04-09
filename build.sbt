@@ -2,7 +2,6 @@ val Scala_212 = "2.12.11"
 val scalatest = "org.scalatest" %% "scalatest" % "3.1.1" % Test 
 val cats_core = "org.typelevel" %% "cats-core" % "2.0.0"
 val cats_effect = "org.typelevel" %% "cats-effect" % "2.0.0"
-// val macroParadise = compilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)
 val kindProjector = compilerPlugin("org.spire-math" %% "kind-projector" % "0.9.4")
 
 inThisBuild(List(
@@ -25,7 +24,6 @@ libraryDependencies ++= Seq(
     scalatest,
     cats_core,
     cats_effect,
-    // macroParadise,
     kindProjector
     )
 )
