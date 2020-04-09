@@ -46,15 +46,17 @@ object ReaderMonad{
 
 def >=> [A,B,C](m1:A=> writer[B],m2: B=> writer[C]): A=>writer[C] //fish 
 
-def puer[A](x:A): writer[A]=(x, " ") 
+def pure[A](x:A): writer[A]=(x, " ") 
 val upCase: String=> writer[String]= s=> (s.toUppercase,"upCase") 
 
 
-// Cartesian Product<-> RDD Pairs 
-def f[A,B]:((A,B))=>B={
+// Cartesian Product<-> RDD Pairs
+object Cartesian{
+    def f[A,B]:((A,B))=>B={
     case (x, y)=> x+y 
     case _=> Nil 
 }
+} 
 
 def ifTrue: Int=> (Int, Boolean) =x => (x, true) 
 
@@ -87,8 +89,8 @@ case class Right[B] (v: B) extends Either [Nothing, B]
 sealed trait T[A,B] 
 case class P[A,B] (a: A, b: B) extends T[A,B] 
 
-case class Name[first: String, last: String, age: Int] 
-val v: A=> Boolean= e=> e.name startsWith (expr) 
+case class Name(first: String, last: String, age: Int) 
+val v: A=> Boolean = e=> e.name startsWith (expr) 
 
 // more Sums 
 sealed trait Color 
@@ -128,6 +130,26 @@ def f[A,B](f: A=>B)(fa: Option[A]): Option[B] //currying
 def Functor[F[_]]{
     def f[A,B](f:A=>B)(fa:F[A]): F[B] 
 }
+
+trait Monoid [A]{
+    def empty: A
+    def combine(x: A, y: A): A
+}
+
+object MonoidInt{
+    implicit val monoidInt: Monoid[Int]= new Monoid[Int]{
+    def empty: Int= 0
+    def combine(a: Int, b: Int): Int= a+b 
+}
+}
+
+def combineAll(T: Monoid)(list: List[T]) :T=
+    list.foldLeft(Monoid[T].empty)(_ combine _) 
+
+
+
+
+
 
 
 

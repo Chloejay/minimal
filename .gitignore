@@ -1,1 +1,8 @@
 target/
+.bloop
+.metals
+.bloop/**
+.metals/**
+framework 
+.DS_Store
+
