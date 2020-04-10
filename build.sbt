@@ -26,4 +26,11 @@ libraryDependencies ++= Seq(
     kindProjector
     )
 )
-scalacOptions += "-Ypartial-unification"
+scalacOptions ++= Seq(
+  "-feature",
+  "-deprecation",
+  "-unchecked",
+  "-language:postfixOps",
+  "-language:higherKinds",
+  "-Ypartial-unification")
+// scalacOptions += "-Ypartial-unification"

@@ -4,4 +4,4 @@ target/
 .bloop/**
 .metals/** 
 .DS_Store
-
+.vscode/

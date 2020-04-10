@@ -1,7 +1,7 @@
 package minimalism 
 
 import cats.effect.ExitCode
-import cats.effect.IO
+import cats.effect.{IO, Resource}
 import cats.effect.IOApp
 import java.io.FileReader
 import cats.effect.Blocker
@@ -25,7 +25,7 @@ object Reader extends IOApp {
 
     line.flatMap{
       line=>
-      IO{println(line)}
+      IO{println(line.toUpperCase())}
       }.as(ExitCode.Success) 
   }
 }
