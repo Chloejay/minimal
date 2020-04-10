@@ -1,8 +1,10 @@
-package minimalism 
+package minimalism.abstracts
+
 /**
   * this file is inspired by Category Theory by Bartosz Milewski. 
-  * So nothing is mine, just read and note down! 
+  * So nothing is mine, just read!  
   */
+
 
 object composition {
     //F                                                Instance 
@@ -47,7 +49,7 @@ object ReaderMonad{
 def >=> [A,B,C](m1:A=> writer[B],m2: B=> writer[C]): A=>writer[C] //fish 
 
 def pure[A](x:A): writer[A]=(x, " ") 
-val upCase: String=> writer[String]= s=> (s.toUppercase,"upCase") 
+val upCase: String => writer[String] = s => (s.toUppercase,"upCase") 
 
 
 // Cartesian Product<-> RDD Pairs
@@ -58,15 +60,14 @@ object Cartesian{
 }
 } 
 
-def ifTrue: Int=> (Int, Boolean) =x => (x, true) 
+def ifTrue: Int=> (Int, Boolean) = x => (x, true) 
 
-def p: Int=> Int=x => f(x)  
-def q: Int=> Boolean=x => ??? 
+def p: Int => Int =x => f(x)  
+def q: Int => Boolean = x => ??? 
 
-def o: T=> (A,B) =x => (p(x), q(x))
+def o: T => (A,B) = x => (p(x), q(x))
 
 def factorize [A,B,C]:(C=>A)=>(C=>B)=>(C=>(A=>B)) = p=>q => x=> (p(x), q(x)) 
-
 
 // coProduct <-> Sums 
 sealed trait contact 
@@ -74,7 +75,7 @@ case class Phone (num: Int) extends contact
 case class Email (email: String) extends contact
 
 //Instance 
-def email: contact= Email("chloejiy@gmail.com") 
+def email: contact = Email("chloejiy@gmail.com") 
 
 // Either[+T] => Some(T) or Nothing 
 sealed trait Either [A,B] 
@@ -90,7 +91,7 @@ sealed trait T[A,B]
 case class P[A,B] (a: A, b: B) extends T[A,B] 
 
 case class Name(first: String, last: String, age: Int) 
-val v: A=> Boolean = e=> e.name startsWith (expr) 
+val v: A => Boolean = e => e.name startsWith (expr) 
 
 // more Sums 
 sealed trait Color 
@@ -103,9 +104,9 @@ case object None extends Option[Nothing]
 case object Some[A] extends Option[A] 
 
 //TO IMPLEMENT 
-def option[A] : List[A]=> Option[List[A]]={
-    case Nil=> None 
-    case const(_, x)=> Some(x) 
+def option[A] : List[A] => Option[List[A]] = {
+    case Nil => None 
+    case const(_, x) => Some(x) 
 }
 
 //TO IMPLEMENT 
@@ -127,13 +128,13 @@ def f[A,B](f: A=>B): (Option[A]=> Option[B])
 <-> 
 def f[A,B](f: A=>B)(fa: Option[A]): Option[B] //currying 
 
-def Functor[F[_]]{
-    def f[A,B](f:A=>B)(fa:F[A]): F[B] 
+trait Functor[F[_]] {
+    def map[A, B](fa: F[A])(func: A => B): F[B]
 }
 
 trait Monoid [A]{
     def empty: A
-    def combine(x: A, y: A): A
+    def combine(x: A, y: A): A //semigroup 
 }
 
 object MonoidInt{
@@ -143,13 +144,15 @@ object MonoidInt{
 }
 }
 
+object MonoidString{
+    implicit val monoidstr: Monoid[String]= new Monoid[String]{
+    def empty: String= " "
+    def combine(a: String, b: String): String= a ++ b 
+}
+}
+
 def combineAll(T: Monoid)(list: List[T]) :T=
     list.foldLeft(Monoid[T].empty)(_ combine _) 
-
-
-
-
-
 
 
 

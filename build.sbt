@@ -33,4 +33,3 @@ scalacOptions ++= Seq(
   "-language:postfixOps",
   "-language:higherKinds",
   "-Ypartial-unification")
-// scalacOptions += "-Ypartial-unification"

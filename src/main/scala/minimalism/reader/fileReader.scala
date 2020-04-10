@@ -1,4 +1,4 @@
-package minimalism 
+package minimalism.reader 
 
 import cats.effect.ExitCode
 import cats.effect.{IO, Resource}
