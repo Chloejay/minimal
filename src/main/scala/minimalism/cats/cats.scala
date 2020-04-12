@@ -5,11 +5,12 @@ import cats.Monoid
 import cats.Functor
 
 
-object TestMonoid_Cats {
-  import cats.instances.string._ 
+object Monoid_Cats {
+
   import cats.instances.int._ 
   import cats.instances.option._ 
   import cats.instances.tuple._ 
+  import cats.instances.string._ 
   import cats.syntax.semigroup._ // |+|
 
   //simple instance of Monoid 
@@ -24,6 +25,7 @@ object TestMonoid_Cats {
 }
 
 object Functor_Cats{
+
   import cats.instances.function._ // Functor
   import cats.syntax.functor._ // map 
 
@@ -43,17 +45,35 @@ object Functor_Cats{
   val pow = func_pow(List(1,2,3)) 
   }
 
-object Main{
-  import TestMonoid_Cats._
-  import Functor_Cats._
+object Monad_Cats {
 
-  def main(args: Array[String]) {
+import cats.Monad 
+import cats.syntax.functor //map 
+import cats.syntax.flatMap //flatmap 
+
+def sum[F[_]: Monad](a: F[Int], b: F[Int]): F[Int]=
+  a.flatMap(x => b.map(y => x+y))  
+
+val sumResult= sum(List(1,2), List(2,3)) 
+}
+
+
+object Cats{
+  import Monoid_Cats._
+  import Functor_Cats._
+  import Monad_Cats._
+
+  def play_cats(args: Array[String]) {
   val sum= combine(1,2)
   val addSum= addAll(List(1,2)) 
-  val addStr= addAll(List("play", "monoid!")) 
+  val addStr= addAll(List("play", "monoid!"))
+
+
   //monoid 
   println(s"Monoid sum of combine $sum, addAll $addSum, $addStr!")
   //functor 
   println(s"$a, $result, $pow") 
+  //monad 
+  println(s"$sumResult")
   }
 }
