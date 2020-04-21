@@ -29,18 +29,18 @@ object Functor_Cats{
   import cats.instances.function._ // Functor
   import cats.syntax.functor._ // map 
 
-  val a= List(1,2,3).
-  map(n=>n*n).
-  map(n=> n+10)
+  val a = List(1,2,3).
+  map(n => n*n).//map to compose func
+  map(n => n+10)
 
-  val fmt: (Int=> Double)= (v: Int) => v.toDouble 
+  val fmt: (Int=> Double) = (v: Int) => v.toDouble 
   val add: (Double => Double) = (v: Double) => v+v
    
   val result = (fmt map add)(10) 
 
   //simple map for functor 
   def func_pow[F[_]](v: F[Int])
-  (implicit functor: Functor[F]): F[Int]= v.map(a => a*a) 
+  (implicit functor: Functor[F]): F[Int] = v.map(a => a*a) 
 
   val pow = func_pow(List(1,2,3)) 
   }
@@ -54,8 +54,9 @@ import cats.syntax.flatMap //flatmap
 def sum[F[_]: Monad](a: F[Int], b: F[Int]): F[Int]=
   a.flatMap(x => b.map(y => x+y))  
 
-val sumResult= sum(List(1,2), List(2,3)) 
+val sumResult = sum(List(1,2), List(2,3)) 
 }
+
 
 
 object Cats{
@@ -64,10 +65,9 @@ object Cats{
   import Monad_Cats._
 
   def play_cats(args: Array[String]) {
-  val sum= combine(1,2)
-  val addSum= addAll(List(1,2)) 
-  val addStr= addAll(List("play", "monoid!"))
-
+  val sum = combine(1,2)
+  val addSum = addAll(List(1,2)) 
+  val addStr = addAll(List("play", "monoid!"))
 
   //monoid 
   println(s"Monoid sum of combine $sum, addAll $addSum, $addStr!")
